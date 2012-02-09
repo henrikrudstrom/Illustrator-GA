@@ -60,6 +60,16 @@ function get_transformation(pta1, pta2, ptb1, ptb2){
 }
 
 function crossover(shape1, shape2){
+	if(shape1 == undefined || shape2 == undefined){
+		Dialog.alert("plese select two paths");
+		return;
+	}
+	if(!shape1.closed || !shape2.closed){
+		Dialog.alert("both shapes must be closed (last point must be equal to the first point of the path)");
+		return;
+	}
+	
+	
 	var l1 = get_dividing_line(shape1);
 	var half1 = divide_shape(shape1, l1);
 	var pts1 = intersect_bounds(shape1, l1);
@@ -81,6 +91,15 @@ function crossover(shape1, shape2){
 }
 
 
+function check_closed(shape){
+	if(shape.segments[0].point != shape.segments[shape.segments.length-1].point){
+		console.log("shape needs to be closed");
+		console.log(shape.segments[0].point, shape.segments[shape.segments.length-1].point)
+	}
+	
+	
+}
+
 
 function test_orient_triangles(tri1, tri2){
 	var pt1 = tri1.segments[0].point;
@@ -92,7 +111,7 @@ function test_orient_triangles(tri1, tri2){
 
 }
 
-
+//check_closed(document.selectedItems[0])
 crossover(document.selectedItems[1], document.selectedItems[0])
 //test_orient_triangles(document.selectedItems[1], document.selectedItems[0])
 //split(document.selectedItems[1], document.selectedItems[0]);
